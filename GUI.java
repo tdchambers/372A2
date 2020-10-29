@@ -11,74 +11,44 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class Gui extends JFrame{
-	/*--------------------------------
-	  Have NOT tested with the other files 
-		  
-	  ----------------------------------------*/
-	//  private final SocketClient socketClient;
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 1L;
 		
 			
-		//Labels
+	//Labels
+	private JLabel Port_label = new JLabel("Port #: ", SwingConstants.LEFT);
+		
+	public JLabel IP_label = new JLabel("IP Address: ", SwingConstants.LEFT);
+	public JLabel ACKPORTlabel = new JLabel("Send ACK port#: ", SwingConstants.LEFT);
+	public JLabel RECDATAlabel = new JLabel("Receive Data port#: ", SwingConstants.LEFT);
+	public JLabel FILETOWRITElabel = new JLabel("file to write: "); 
+	public JLabel NUMPACKETSlabel = new JLabel("# of received in-order packets");
 		
 		
 		
-		
-		private JLabel Port_label = new JLabel("Port #: ", SwingConstants.LEFT);
-		
-
-		
-		
-		
-		//Buttons
-		public static JButton receiveButton = new JButton("RECEIVE");
-		public static JButton Clear= new JButton("CLEAR");
-		public static JButton Connect= new JButton("Connect");
-		public static JButton Disconnect= new JButton("Disconnect ");
-
-
-		
-		//TextFields
-		
-		public JLabel IP_label = new JLabel("IP Address: ", SwingConstants.LEFT);
-		
-		public static JTextField IPtxt = new JTextField();
-		
-		public JLabel ACKPORTlabel = new JLabel("Send ACK port#: ", SwingConstants.LEFT);
-
-		public static JTextField ACKPORTtxt  = new JTextField();
-
-		public JLabel RECDATAlabel = new JLabel("Receive Data port#: ", SwingConstants.LEFT);
-
-		public static JTextField RECDATAtxt = new JTextField();
-
-		public JLabel FILETOWRITElabel = new JLabel("file to write: "); 
-		
+	//Buttons
+	public static JButton receiveButton = new JButton("RECEIVE");
+	public static JButton Clear= new JButton("CLEAR");
+	public static JButton Connect= new JButton("Connect");
+	public static JButton Disconnect= new JButton("Disconnect ");
 	
-		public static JTextField FILETOWRITEtxt = new JTextField();
-		
-		
-		
-		public JLabel NUMPACKETSlabel = new JLabel("# of received in-order packets");
-		
-		public static JTextField  NUMPACKETStxt = new JTextField("0"); 
+	//TextFields	
+	public static JTextField IPtxt = new JTextField();
+	public static JTextField ACKPORTtxt  = new JTextField();
+	public static JTextField RECDATAtxt = new JTextField();
+	public static JTextField FILETOWRITEtxt = new JTextField();
+	public static JTextField  NUMPACKETStxt = new JTextField("0"); 
 		
 	  
 		
-		public void addElements() {
+	public void addElements() {
 		receiveButton.setBackground(Color.GREEN);
 		receiveButton.setOpaque(true);
 		
-		
 		this.add(IP_label);
 		this.add(IPtxt);
+		
 		this.add(ACKPORTlabel);
-
-
-
 		this.add(ACKPORTtxt);
 
 		this.add(RECDATAlabel);
