@@ -17,6 +17,7 @@ public class Receiver {
 					outputData.append((char) packet.getData()[i]);
 				}
 				int seqNumber = packet.getData()[packet.getLength()- 1 ];
+				writeToOutputFile(outputTxtName, outputData.toString());
 			} catch(IOException exception) {
 				break;
 			}
@@ -25,5 +26,18 @@ public class Receiver {
 	public void endReceiving() {
 		socket.close();
 	}
+	
+	public void writeToOutputFile(String outputTxtName, String outputData) {
+		try {
+			PrintWriter outputfile = new PrintWriter(outputTxtName);
+			outputfile.println(outputData);
+			outputfile.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
+
+}
 }
