@@ -3,8 +3,8 @@ import java.net.*;
 public class Receiver {
 	DatagramSocket socket ;
 	
-	public void Receiving(String IP , int senderPort, int receiverPort, String outputTxtName) throws SocketException {
-		System.out.println("Begin receving on: " + IP + "on port " + receiverPort);
+	public void Receiving(String iP , int senderPort, int receiverPort, String outputTxtName) throws SocketException {
+		System.out.println("Begin receving on: " + iP + "on port " + receiverPort);
 		socket = new DatagramSocket();
 		socket.bind(new InetSocketAddress(IP , receiverPort));
 		byte[] buffer = new byte[1024];
