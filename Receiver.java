@@ -3,7 +3,7 @@ import java.net.*;
 public class Receiver {
 	DatagramSocket socket ;
 	
-	public void Receiving(String IP , int senderPort, int receiverPort, String outputTxtName) throws SocketException {
+	public void Receiving(String iP , int senderPort, int receiverPort, String outputTxtName) throws SocketException {
 		System.out.println("Begin receving on: " + IP + "on port " + receiverPort);
 		socket = new DatagramSocket();
 		socket.bind(new InetSocketAddress(IP , receiverPort));
