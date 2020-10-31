@@ -12,7 +12,7 @@ public class Sender{
     String fileName = args[3];
     int maxSize = Integer.parseInt(args[4]);
     int timeout = Integer.parseInt(args[5]); 
-    
+    int ack;
     byte[] buffer = new byte[1024];
 		DatagramPacket packet = new DatagramPacket(buffer, 1024);
 		DatagramSocket socket = new DatagramSocket(null);
@@ -46,7 +46,12 @@ public class Sender{
 	socket.send(new DatagramPacket(b, b.length, InetAddress.getByAddress(iP), receiverPort));
 		   
 	try{
-		int x = 5; 
+		
+		socket.receive(packet);
+		ack = -1; 
+		for (byte byt : packet.getData()){
+			String iD = String.valueOf(char byt);
+		}
 		
 	}catch(SocketTimoutException e){
 		i--;
