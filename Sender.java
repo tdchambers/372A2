@@ -33,32 +33,34 @@ public class Sender{
    long timer = System.currentTimeMillis();
 
    for (int i = 0; i < (fileData.length() + maxSize) +2; i++){
-	   if(i < (fileContent.length() / maxDataSize) + 1){
+	   if(i < (fileData.length() / maxSize) + 1){
 		   byte[] b = new byte[maxSize +1];
 		   //create byte array here
 		   
 	   }
 	   else{
 		   //signal end of transmission
-		   byte[] b = new byte[]{(byte) 'end' ,(byte) 5);
+		 //  byte[] b = new byte[]{(byte) 'end' ,(byte) 5};
 	   }
 	
 	socket.send(new DatagramPacket(b, b.length, InetAddress.getByAddress(iP), receiverPort));
 		   
 	try{
+		int x = 5; 
+		
 	}catch(SocketTimoutException e){
 		i--;
 		//resending the datagram because a timeout has occured. 
 	}
-	   }
    }
+	  
+	  
+	   long transmissionTime = System.currentTimeMillis() - timer;
+	   System.out.println("The total transmission time (ms) is: " + transmissionTime);
+	   socket.close(); 
+  }
 		   
 	   
    }
 
-    
-    
-  }
-  
-  
-}
+   
