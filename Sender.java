@@ -1,71 +1,50 @@
+
 import java.io.*;
-import java.util.*; 
-import java.net.*; 
-
-public class Sender{
-  
-  public static void main(String[] args) {
-    
-    String iP = args[0];
-    int senderPort = Integer.parseInt(args[1]);
-    int receiverPort = Integer.parseInt(args[2]);
-    String fileName = args[3];
-    int maxSize = Integer.parseInt(args[4]);
-    int timeout = Integer.parseInt(args[5]); 
-    int ack;
-    byte[] buffer = new byte[1024];
-		DatagramPacket packet = new DatagramPacket(buffer, 1024);
-		DatagramSocket socket = new DatagramSocket(null);
-    socket.bind(new InetSocketAddress(iP, senderPort));
-    socket.setSoTimeout(timeout); 
-    
-    //read file
-    StringBuilder stringBuilder = new StringBuilder(); 
-    Scanner scanner = new Scanner (new File(fileName));
-    while (scanner.hasNextLine()){
-      stringBuilder.append(scanner.nextLine());
-      stringBuilder.append("\n");
-    }
-    scanner.close();
-    
-   String fileData = stringBuilder.toString();  
-	  
-   long timer = System.currentTimeMillis();
-
-   for (int i = 0; i < (fileData.length() + maxSize) +2; i++){
-	   if(i < (fileData.length() / maxSize) + 1){
-		   byte[] b = new byte[maxSize +1];
-		   //create byte array here
-		   
-	   }
-	   else{
-		   //signal end of transmission
-		 //  byte[] b = new byte[]{(byte) 'end' ,(byte) 5};
-	   }
+import java.net.*;
+import java.util.*;
+public class Receiver {
+	DatagramSocket socket ;
 	
-	socket.send(new DatagramPacket(b, b.length, InetAddress.getByAddress(iP), receiverPort));
-		   
-	try{
-		
-		socket.receive(packet);
-		ack = -1; 
-		for (byte byt : packet.getData()){
-			String iD = String.valueOf(char byt);
+	public void Receiving(String iP , int senderPort, int receiverPort, String outputTxtName) throws SocketException {
+		System.out.println("Begin receving on: " + iP + " on port " + receiverPort);
+		socket = new DatagramSocket(null);
+		System.out.println("before bound ");
+		socket.bind(new InetSocketAddress(iP , receiverPort));
+		System.out.println("after bound");
+		byte[] buffer = new byte[1024];
+		DatagramPacket packet = new DatagramPacket(buffer, 1024);
+		while (true) {
+			try {
+				socket.receive(packet);
+				StringBuilder outputData = new StringBuilder(); 
+				for (int i = 0; i < packet.getLength() - 1 ; i++) {
+					outputData.append((char) packet.getData()[i]);
+				}
+				int seqNumber = packet.getData()[packet.getLength()- 1 ];
+				writeToOutputFile(outputTxtName, outputData.toString());
+			} catch(IOException exception) {
+				break;
+			}
+		}
+	}
+	public void endReceiving() {
+		socket.close();
+	}
+	
+	public void writeToOutputFile(String outputTxtName, String outputData) {
+		try {
+			PrintWriter outputfile = new PrintWriter(outputTxtName);
+			outputfile.println(outputData);
+			outputfile.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-	}catch(SocketTimoutException e){
-		i--;
-		//resending the datagram because a timeout has occured. 
-	}
-   }
-	  
-	  
-	   long transmissionTime = System.currentTimeMillis() - timer;
-	   System.out.println("The total transmission time (ms) is: " + transmissionTime);
-	   socket.close(); 
-  }
-		   
-	   
-   }
+		
 
-   
+
+}
+
+}
+
