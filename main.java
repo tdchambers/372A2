@@ -1,6 +1,6 @@
 import javax.swing.JFrame;
 
-public class miyan{
+public class main{
 			public static void main(String[] args){
 			
 				Gui F = new Gui();
@@ -10,4 +10,4 @@ public class miyan{
 				 F.setSize(400,300);
 				 F.setVisible(true);
 			}
-		}127
+		}
