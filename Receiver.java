@@ -1,17 +1,22 @@
+
 import java.io.*;
 import java.net.*;
 public class Receiver {
 	DatagramSocket socket ;
 	
 	public void Receiving(String iP , int senderPort, int receiverPort, String outputTxtName) throws SocketException {
-		System.out.println("Begin receving on: " + iP + "on port " + receiverPort);
-		socket = new DatagramSocket();
-		socket.bind(new InetSocketAddress(IP , receiverPort));
+		System.out.println("Begin receving on: " + iP + " on port " + receiverPort);
+		socket = new DatagramSocket(null);
+		System.out.println("before bound ");
+		socket.bind(new InetSocketAddress(iP , receiverPort));
+		System.out.println("after bound");
 		byte[] buffer = new byte[1024];
 		DatagramPacket packet = new DatagramPacket(buffer, 1024);
 		while (true) {
 			try {
+				System.out.println("Waiting for data");
 				socket.receive(packet);
+				System.out.println("Packet Received...");
 				StringBuilder outputData = new StringBuilder(); 
 				for (int i = 0; i < packet.getLength() - 1 ; i++) {
 					outputData.append((char) packet.getData()[i]);
@@ -37,7 +42,10 @@ public class Receiver {
 			e.printStackTrace();
 		}
 		
+		
 
 
 }
+
 }
+
