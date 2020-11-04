@@ -4,7 +4,7 @@ import java.net.*;
 
 public class Sender{
   
-  public static void main(String[] args) throws SocketException, FileNotFoundException {
+  public static void main(String[] args) throws SocketException, FileNotFoundException, IOException{
     
     String iP = args[0];
     
@@ -44,7 +44,7 @@ public class Sender{
 	  
    long timer = System.currentTimeMillis();
 
-   for (int i = 0; i < (fileData.length() + maxSize) +2; i++){
+   for (int i = 0; i < (fileData.length() / maxSize) +2; i++){
 	   if(i < (fileData.length() / maxSize) + 1){
 		    b = new byte[maxSize +1];
 		    int endIndex = i == fileData.length() / maxSize ? fileData.length() : maxSize * (i + 1);
@@ -58,7 +58,7 @@ public class Sender{
 	   }
 	   else{
 		   //signal end of transmission
-		 byte[] b = new byte[]{(byte) 'end' ,(byte) 5};
+		// byte[] b = new byte[]{(byte) 'end' ,(byte) 5};
 	   }
 	
 	try {
@@ -72,18 +72,15 @@ public class Sender{
 	} catch (UnknownHostException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
-	} catch (IOException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-  	 }catch (SocketTimoutException e1){
+  	 }catch (SocketTimeoutException e1){
 		System.out.println ("Timout has occured");
 		i--; 
 	}
 	   
-	   int ack = -1;
+	   ack = -1;
 	   
 	   for (byte byt: packet.getData()){
-		   String value = String.valueOf((char) byt;
+		   String value = String.valueOf((char) byt);
 		   if(value == "0" || value =="1" || value =="5"){
 			   ack = Integer.parseInt(value);
 		   }
