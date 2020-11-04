@@ -16,21 +16,28 @@ public class Receiver {
 		byte[] buffer = new byte[1024];
 		DatagramPacket packet = new DatagramPacket(buffer, 1024);
 		int inOrderCount = 0;
+		StringBuilder outputData = new StringBuilder(); 
 		while (true) {
 			try {
 				System.out.println("Waiting for data");
 				socket.receive(packet);
 				System.out.println("Packet Received...");
-				StringBuilder outputData = new StringBuilder(); 
+				
 				for (int i = 0; i < packet.getLength() - 1 ; i++) {
 					outputData.append((char) packet.getData()[i]);
 					
 				}
-				inOrderCount++;
+				
 				//inOrderText.setText(inOrderCount+ "");
 				int seqNumber = packet.getData()[packet.getLength()- 1 ];
-				writeToOutputFile(outputTxtName, outputData.toString());
-				
+				System.out.println(seqNumber);
+				System.out.println(outputData.toString());
+				if(outputData.toString().contains("\t") && seqNumber == 5) {
+					writeToOutputFile(outputTxtName, outputData.toString());
+
+				}else{
+					inOrderCount++;
+				}
 				
 				
 				//send ACKS to sender 
