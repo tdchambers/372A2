@@ -1,8 +1,11 @@
 
 import java.io.*;
 import java.net.*;
+
+import javax.swing.JTextField;
 public class Receiver {
 	DatagramSocket socket ;
+	private JTextField inOrderText;
 	
 	public void Receiving(String iP , int senderPort, int receiverPort, String outputTxtName) throws SocketException {
 		System.out.println("Begin receving on: " + iP + " on port " + receiverPort);
@@ -12,6 +15,7 @@ public class Receiver {
 		System.out.println("after bound");
 		byte[] buffer = new byte[1024];
 		DatagramPacket packet = new DatagramPacket(buffer, 1024);
+		int inOrderCount = 0;
 		while (true) {
 			try {
 				System.out.println("Waiting for data");
@@ -20,9 +24,18 @@ public class Receiver {
 				StringBuilder outputData = new StringBuilder(); 
 				for (int i = 0; i < packet.getLength() - 1 ; i++) {
 					outputData.append((char) packet.getData()[i]);
+					
 				}
+				inOrderCount++;
+				//inOrderText.setText(inOrderCount+ "");
 				int seqNumber = packet.getData()[packet.getLength()- 1 ];
 				writeToOutputFile(outputTxtName, outputData.toString());
+				
+				
+				
+				//send ACKS to sender 
+				String ACK = "ACK" + seqNumber;
+				socket.send(new DatagramPacket(ACK.getBytes(),ACK.getBytes().length, InetAddress.getByName(iP),senderPort));
 			} catch(IOException exception) {
 				break;
 			}
@@ -46,6 +59,9 @@ public class Receiver {
 
 
 }
+	  public void updateInOrderText(JTextField text) {
+		  this.inOrderText = text;
+	  }
 
 }
 
