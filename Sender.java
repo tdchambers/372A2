@@ -58,7 +58,7 @@ public class Sender{
 	   }
 	   else{
 		   //signal end of transmission
-		b =new byte[]{(byte) '\b', (byte) 5};
+		b =new byte[]{(byte) '\t', (byte) 5};
 	   }
 	
 	try {
