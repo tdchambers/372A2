@@ -4,7 +4,7 @@ import java.net.*;
 
 public class Sender{
   
-  public static void main(String[] args) throws SocketException, FileNotFoundException, IOException{
+  public static void main(String[] args) throws SocketException,IOException, FileNotFoundException {
     
     String iP = args[0];
     
@@ -58,7 +58,8 @@ public class Sender{
 	   }
 	   else{
 		   //signal end of transmission
-		b =new byte[]{(byte) '\t', (byte) 5};
+		   System.out.println("MAKING THE TAB \n\n\n\n");
+		 b  = new byte[]{(byte) '\t' ,(byte) 5};
 	   }
 	
 	try {
@@ -72,19 +73,23 @@ public class Sender{
 	} catch (UnknownHostException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
+;
   	 }catch (SocketTimeoutException e1){
 		System.out.println ("Timout has occured");
 		i--; 
 	}
 	   
-	   ack = -1;
+	    ack = -1;
 	   
 	   for (byte byt: packet.getData()){
 		   String value = String.valueOf((char) byt);
-		   if(value == "0" || value =="1" || value =="5"){
+		   if(value.equals("0") || value.equals("1") || value.equals("5")){
+			   
 			   ack = Integer.parseInt(value);
 		   }
+		   
 	   }
+	  // System.out.println("ACK : " + ack);
 	   if (ack != 0 && ack != 1 && ack != 5){
 		   i--; 
 		   System.out.println("The ack received is not valid. The datagram is being resent.");
