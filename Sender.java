@@ -58,7 +58,7 @@ public class Sender{
 	   }
 	   else{
 		   //signal end of transmission
-		 //  byte[] b = new byte[]{(byte) 'end' ,(byte) 5};
+		 byte[] b = new byte[]{(byte) 'end' ,(byte) 5};
 	   }
 	
 	try {
@@ -75,14 +75,26 @@ public class Sender{
 	} catch (IOException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
+  	 }catch (SocketTimoutException e1){
+		System.out.println ("Timout has occured");
+		i--; 
 	}
+	   
+	   int ack = -1;
+	   
+	   for (byte byt: packet.getData()){
+		   String value = String.valueOf((char) byt;
+		   if(value == "0" || value =="1" || value =="5"){
+			   ack = Integer.parseInt(value);
+		   }
+	   }
+	   if (ack != 0 && ack != 1 && ack != 5){
+		   i--; 
+		   System.out.println("The ack received is not valid. The datagram is being resent.");
 		   
-	
-	ack = -1; 
-	for (byte byt : packet.getData()){
-		String iD = String.valueOf((char) byt);
-		if (iD.equals("0") || iD.equals("1") || iD.equals("4"))
-            ack = Integer.parseInt(iD);
+	   }
+		else{
+			System.out.println("The Ack received is valid.");  
 		
 	}
    }
