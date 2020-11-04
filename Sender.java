@@ -67,6 +67,8 @@ public class Sender{
 		System.out.println(receiverPort);
 		socket.send(new DatagramPacket(b, b.length, InetAddress.getByName(iP), receiverPort));
 		System.out.println("SENT");
+		System.out.println("Awaiting Acknowledgement... ");
+		socket.receive(packet);
 	} catch (UnknownHostException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
@@ -75,15 +77,13 @@ public class Sender{
 		e1.printStackTrace();
 	}
 		   
-	try {
-		socket.receive(packet);
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	
 	ack = -1; 
 	for (byte byt : packet.getData()){
 		String iD = String.valueOf((char) byt);
+		if (iD.equals("0") || iD.equals("1") || iD.equals("4"))
+            ack = Integer.parseInt(iD);
+		
 	}
    }
 	  
@@ -93,6 +93,8 @@ public class Sender{
 	   System.out.println("before close");
 	   socket.close(); 
   }
+  
+
 		   
 	   
    }
