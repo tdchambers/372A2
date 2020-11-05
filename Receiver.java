@@ -16,12 +16,14 @@ public class Receiver {
 		byte[] buffer = new byte[1024];
 		DatagramPacket packet = new DatagramPacket(buffer, 1024);
 		int inOrderCount = 0;
+		int count = 0;
 		StringBuilder outputData = new StringBuilder(); 
 		while (true) {
 			try {
 				System.out.println("Waiting for data");
 				socket.receive(packet);
-				System.out.println("Packet Received...");
+				count = count+1; 
+				System.out.println("Packet Received.");
 				
 				for (int i = 0; i < packet.getLength() - 1 ; i++) {
 					outputData.append((char) packet.getData()[i]);
