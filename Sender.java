@@ -98,8 +98,8 @@ public class Sender{
 		e1.printStackTrace();
 
  	 }catch (SocketTimeoutException e1){
-		System.out.println ("Timout has occured");
-		System.out.println("makingsureupdated");
+		System.out.println ("-----------------\nTimeout has occured\n-------------");
+		
 		i--; 
 	}
    }
