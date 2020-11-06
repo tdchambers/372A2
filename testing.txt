@@ -1,0 +1,77 @@
+timing for small <4kb 
+
+reliable:
+MDS = 100, timeout time = 20000ms 
+The total transmission time (ms) is: 31
+
+MDS = 200, timeout time = 20000ms  
+The total transmission time (ms) is: 20
+
+MDS = 400, timeout time = 20000ms 
+The total transmission time (ms) is: 9
+—————————————————————————————
+
+
+unreliable: 
+MDS = 100, timeout time = 20000ms 
+The total transmission time (ms) is: 20054
+
+MDS = 200, timeout time = 20000ms
+The total transmission time (ms) is: 20018
+
+MDS = 400, timeout time = 20000ms 
+The total transmission time (ms) is: 11 (timeout never occurred since the data fit in 9 packets) 
+
+————————————
+
+MDS = 100, timeout time = 1000ms 
+The total transmission time (ms) is: 2029
+
+
+
+MDS = 200, timeout time = 1000ms 
+The total transmission time (ms) is: 1015
+
+
+
+MDS = 400, timeout time = 1000ms 
+The total transmission time (ms) is: 1016
+
+
+
+
+
+
+———————————————————
+timing for large (0.2mb - 2mb)
+
+reliable: 
+MDS = 100, timeout time = 20000
+The total transmission time (ms) is: 8483
+
+MDS = 200, timeout time = 20000
+The total transmission time (ms) is: 8643 (weird that it went up) 
+
+
+MDS = 400, timeout time = 20000
+The total transmission time (ms) is: 5676
+
+
+unreliable: 
+MDS = 100, timeout time = 100
+ The total transmission time (ms) is: 139376
+
+MDS = 200, timeout time = 100
+The total transmission time (ms) is: 74923
+
+MDS = 400, timeout time = 100 
+The total transmission time (ms) is: 38835
+———————————————————
+MDS 100, timeout time = 50
+The total transmission time (ms) is: 100661
+
+MDS 200, timeout time = 50 
+The total transmission time (ms) is: 52840
+
+MDS 400, timeout time = 50 
+The total transmission time (ms) is: 29770
