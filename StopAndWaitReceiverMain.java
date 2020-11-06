@@ -247,5 +247,6 @@ class Gui extends JFrame{
 		  this.inOrderText = text;
 	  }
 
-}
+
+ }
 
