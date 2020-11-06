@@ -14,9 +14,9 @@ DatagramSocket socket ;
 	public void Receiving(String iP , int senderPort, int receiverPort, String outputTxtName, boolean isReliable) throws SocketException {
 		System.out.println("Begin receving on: " + iP + " on port " + receiverPort);
 		socket = new DatagramSocket(null);
-		//System.out.println("before bound ");
+		
 		socket.bind(new InetSocketAddress(iP , receiverPort));
-		//System.out.println("after bound");
+		
 		byte[] buffer = new byte[1024];
 		DatagramPacket packet = new DatagramPacket(buffer, 1024);
 		int packCount = 0; 
