@@ -32,7 +32,7 @@ public class Sender{
     
     //read file
     StringBuilder stringBuilder = new StringBuilder();
-    System.out.println(fileName);
+    System.out.println("original file name: " +fileName);
     Scanner scanner = new Scanner (new File(fileName));
     while (scanner.hasNextLine()){
       stringBuilder.append(scanner.nextLine());
@@ -58,26 +58,19 @@ public class Sender{
 	   }
 	   else{
 		   //signal end of transmission
-		   System.out.println("MAKING THE TAB \n\n\n\n");
+		   System.out.println("final transmission...");
 		 b  = new byte[]{(byte) '\t' ,(byte) 5};
 	   }
 	
 	try {
-		System.out.println("Sending DataGram packet");
-		System.out.println(InetAddress.getByName(iP));
-		System.out.println(receiverPort);
+		System.out.println("Sending DataGram packet...");
+		//System.out.println(InetAddress.getByName(iP));
+		//System.out.println(receiverPort);
 		socket.send(new DatagramPacket(b, b.length, InetAddress.getByName(iP), receiverPort));
 		System.out.println("SENT");
 		System.out.println("Awaiting Acknowledgement... ");
 		socket.receive(packet);
-	} catch (UnknownHostException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-;
-  	 }catch (SocketTimeoutException e1){
-		System.out.println ("Timout has occured");
-		i--; 
-	}
+
 	   
 	    ack = -1;
 	   
@@ -99,12 +92,23 @@ public class Sender{
 			System.out.println("The Ack received is valid.");  
 		
 	}
+	   System.out.println("ACK :" + ack);
+   	} catch (UnknownHostException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+
+ 	 }catch (SocketTimeoutException e1){
+		System.out.println ("Timout has occured");
+		System.out.println("makingsureupdated");
+		i--; 
+	}
    }
+
 	  
 	  
 	   long transmissionTime = System.currentTimeMillis() - timer;
 	   System.out.println("The total transmission time (ms) is: " + transmissionTime);
-	   System.out.println("before close");
+	   System.out.println("closing");
 	   socket.close(); 
   }
   
