@@ -8,6 +8,10 @@ DatagramSocket socket ;
 	private JTextField inOrderText;
 	
 	public void Receiving(String iP , int senderPort, int receiverPort, String outputTxtName, boolean isReliable) throws SocketException {
+DatagramSocket socket ;
+	private JTextField inOrderText;
+	
+	public void Receiving(String iP , int senderPort, int receiverPort, String outputTxtName, boolean isReliable) throws SocketException {
 		System.out.println("Begin receving on: " + iP + " on port " + receiverPort);
 		socket = new DatagramSocket(null);
 		//System.out.println("before bound ");
@@ -16,13 +20,16 @@ DatagramSocket socket ;
 		byte[] buffer = new byte[1024];
 		DatagramPacket packet = new DatagramPacket(buffer, 1024);
 		int packCount = 0; 
-		int count = 0;
+		int inOrderCount = 0;
 		StringBuilder outputData = new StringBuilder(); 
 		while (true) {
 			try {
 				System.out.println("\nWaiting for data\n");
 				socket.receive(packet);
 				System.out.println("\nPacket Received...\n");
+				packCount++;
+				System.out.println(packCount);
+
 				if (isReliable || packCount % 10 != 0) {
 					for (int i = 0; i < packet.getLength() - 1 ; i++) {
 						outputData.append((char) packet.getData()[i]);
@@ -39,7 +46,7 @@ DatagramSocket socket ;
 						
 					}else{
 						inOrderCount++;
-						count++;
+						
 					}
 					
 					
